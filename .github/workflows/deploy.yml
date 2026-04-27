@@ -8,6 +8,7 @@ on:
 env:
   SERVICE_NAME: peakfuel-ai
   REGION: us-central1
+  GCP_PROJECT_ID: gen-lang-client-0154710543
 
 jobs:
   deploy:
@@ -32,11 +33,11 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }} .
+        docker build -t gcr.io/${{ env.GCP_PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }} .
 
     - name: Push Docker Image to GCR
       run: |
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+        docker push gcr.io/${{ env.GCP_PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
 
     - name: Deploy to Cloud Run
       id: deploy
@@ -44,7 +45,7 @@ jobs:
       with:
         service: ${{ env.SERVICE_NAME }}
         region: ${{ env.REGION }}
-        image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+        image: gcr.io/${{ env.GCP_PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
         flags: '--allow-unauthenticated --port=80'
 
     - name: Show Deployment URL
