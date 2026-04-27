@@ -26,7 +26,7 @@ Because PeakFuel AI is completely offline and client-side, setup takes zero seco
 
 1. Clone or download this repository:
    ```bash
-   git clone https://github.com/yourusername/peakfuel-ai.git
+   git clone https://github.com/LALITHD-21/PeakFuel-AI.git
    ```
 2. Open the project folder.
 3. Double-click `index.html` to open it in any modern web browser.
