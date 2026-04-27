@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PeakFuel AI is an offline-first fitness, food, workout, and health decision coach.">
+  <meta name="theme-color" content="#f7f8f5">
+  <title>PeakFuel AI - Fitness & Food Coach</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="loader-overlay" id="loader" role="status" aria-live="polite">
+    <div class="loader-spinner" aria-hidden="true"></div>
+    <p>Loading your fitness profile...</p>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span aria-hidden="true">OK</span>
+    <span id="toast-message">Saved</span>
+  </div>
+
+  <div class="app">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="logo">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 36 36" focusable="false">
+            <path class="logo-shield" d="M18 2.5 31 9.8v13.9L18 33.5 5 23.7V9.8L18 2.5Z"></path>
+            <path class="logo-flame" d="M18.5 27c-5.6-2.6-7.4-7.7-4.3-12.2 1.3-1.9 3.5-3.2 3.4-6.3 4.9 3.2 8.7 7.7 5.6 13.2-.9 1.7-2.4 3.4-4.7 5.3Z"></path>
+            <path class="logo-leaf" d="M17 22.3c1.4-5 5.4-8.2 11.4-8.7-.8 6.1-4.9 9.6-11.4 8.7Z"></path>
+            <path class="logo-bolt" d="M15 15h6l-3 5h5l-8 8 2.4-6H13l2-7Z"></path>
+          </svg>
+        </span>
+        <span>PeakFuel AI</span>
+      </div>
+
+      <p class="nav-section-label">Main</p>
+      <nav class="nav-list">
+        <button class="nav-item active" type="button" data-page="dashboard" aria-label="Open dashboard">
+          <span class="nav-icon" aria-hidden="true">D</span>
+          Dashboard
+        </button>
+        <button class="nav-item" type="button" data-page="workout" aria-label="Open workout plan">
+          <span class="nav-icon" aria-hidden="true">W</span>
+          Workout Plan
+        </button>
+        <button class="nav-item" type="button" data-page="nutrition" aria-label="Open nutrition">
+          <span class="nav-icon" aria-hidden="true">N</span>
+          Nutrition
+        </button>
+        <button class="nav-item" type="button" data-page="progress" aria-label="Open progress">
+          <span class="nav-icon" aria-hidden="true">P</span>
+          Progress
+        </button>
+      </nav>
+
+      <p class="nav-section-label">Coach</p>
+      <button class="nav-item" type="button" data-page="coach" aria-label="Open AI coach">
+        <span class="nav-icon" aria-hidden="true">AI</span>
+        AI Coach
+        <span class="nav-badge">AI</span>
+      </button>
+      <button class="nav-item" type="button" data-page="profile" aria-label="Open user profile">
+        <span class="nav-icon" aria-hidden="true">U</span>
+        Profile
+      </button>
+
+      <div class="sidebar-profile">
+        <div class="avatar" id="avatar">AI</div>
+        <div>
+          <div class="profile-name" id="sidebar-name">Apex User</div>
+          <div class="profile-goal" id="sidebar-goal">Strength + Energy</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      <section class="page active" id="page-dashboard" aria-labelledby="dashboard-title">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title" id="dashboard-title">Good day, <span id="hero-name">Apex User</span></h1>
+            <p class="page-sub" id="dashboard-subtitle">Today is your next clean decision.</p>
+          </div>
+          <button class="header-btn" type="button" data-jump="workout">Today's Workout</button>
+        </div>
+
+        <section class="stats-row" aria-label="Daily health stats">
+          <article class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon green" aria-hidden="true">S</div>
+              <span class="stat-change stat-up" id="score-status">Live</span>
+            </div>
+            <div class="stat-val"><span id="score-value">100</span><span class="stat-unit"> /100</span></div>
+            <div class="stat-label">Health Score</div>
+            <div class="stat-bar"><span id="score-bar"></span></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon orange" aria-hidden="true">P</div>
+              <span class="stat-change stat-up" id="protein-status">Guide</span>
+            </div>
+            <div class="stat-val"><span id="protein-target">84</span><span class="stat-unit"> g</span></div>
+            <div class="stat-label">Protein Guide</div>
+            <div class="stat-bar"><span id="protein-bar"></span></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon blue" aria-hidden="true">W</div>
+              <span class="stat-change stat-up" id="workout-status">Ready</span>
+            </div>
+            <div class="stat-val"><span id="workout-count">0</span><span class="stat-unit"> done</span></div>
+            <div class="stat-label">Workouts Today</div>
+            <div class="stat-bar"><span id="workout-bar"></span></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon yellow" aria-hidden="true">KG</div>
+              <span class="stat-change" id="weight-status">Profile</span>
+            </div>
+            <div class="stat-val"><span id="weight-value">70</span><span class="stat-unit"> kg</span></div>
+            <div class="stat-label">Body Weight</div>
+            <div class="stat-bar"><span id="weight-bar"></span></div>
+          </article>
+        </section>
+
+        <div class="dash-grid">
+          <article class="card">
+            <h2 class="card-title"><span aria-hidden="true">TARGET</span> Today's Macros</h2>
+            <div class="calorie-wrap">
+              <div class="ring-svg-wrap" aria-label="Health score ring">
+                <svg viewBox="0 0 120 120" aria-hidden="true">
+                  <circle cx="60" cy="60" r="50" class="ring-track"></circle>
+                  <circle cx="60" cy="60" r="50" class="ring-progress" id="score-ring"></circle>
+                </svg>
+                <div class="ring-label">
+                  <strong id="ring-score">100</strong>
+                  <span>health score</span>
+                </div>
+              </div>
+              <div class="macro-list">
+                <div class="macro-row">
+                  <span class="macro-name">Healthy</span>
+                  <span class="macro-bar-bg"><span id="healthy-bar"></span></span>
+                  <span class="macro-g" id="healthy-impact">+0</span>
+                </div>
+                <div class="macro-row">
+                  <span class="macro-name">Junk</span>
+                  <span class="macro-bar-bg"><span id="junk-bar"></span></span>
+                  <span class="macro-g" id="junk-impact">-0</span>
+                </div>
+                <div class="macro-row">
+                  <span class="macro-name">Skipped</span>
+                  <span class="macro-bar-bg"><span id="skip-bar"></span></span>
+                  <span class="macro-g" id="skip-impact">-0</span>
+                </div>
+                <div class="macro-row">
+                  <span class="macro-name">Water</span>
+                  <span class="macro-bar-bg"><span id="water-bar"></span></span>
+                  <span class="macro-g" id="water-progress">0/8</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2 class="card-title"><span aria-hidden="true">MEALS</span> Today's Timeline</h2>
+            <ol class="meal-list" id="timeline" aria-label="Recent logged decisions"></ol>
+          </article>
+        </div>
+
+        <div class="dash-grid-3">
+          <article class="card">
+            <h2 class="card-title"><span aria-hidden="true">WATER</span> Water Intake</h2>
+            <div class="water-cups" id="water-cups" aria-label="Water progress"></div>
+            <p class="water-label" id="water-label">0 / 8 glasses</p>
+          </article>
+
+          <article class="card">
+            <h2 class="card-title"><span aria-hidden="true">RISK</span> Smart Decision</h2>
+            <div class="sleep-display">
+              <strong class="sleep-num" id="risk-level">LOW</strong>
+              <span class="sleep-unit" id="prediction">Stable</span>
+              <span class="sleep-quality" id="time-context">Day</span>
+            </div>
+          </article>
+
+          <article class="streak-card">
+            <h2 class="card-title">Streak</h2>
+            <div class="streak-num" id="streak-count">0</div>
+            <p class="streak-label">healthy days in a row</p>
+            <div class="streak-days" id="streak-days" aria-label="Weekly streak display"></div>
+          </article>
+        </div>
+
+        <div class="dash-grid">
+          <section class="card" aria-labelledby="quick-log-title">
+            <div class="card-head">
+              <div>
+                <h2 class="card-title" id="quick-log-title">Quick Log</h2>
+                <p class="card-sub">What did you choose?</p>
+              </div>
+              <div class="button-pair">
+                <button class="small-btn" type="button" id="undo-button">Undo</button>
+                <button class="small-btn" type="button" id="reset-button">Reset</button>
+              </div>
+            </div>
+            <div class="quick-grid" role="group" aria-label="Quick log options">
+              <button class="food-tile healthy" type="button" data-action="healthy"></button>
+              <button class="food-tile junk" type="button" data-action="junk"></button>
+              <button class="food-tile skip" type="button" data-action="skip"></button>
+              <button class="food-tile water" type="button" data-action="water"></button>
+              <button class="food-tile fruit" type="button" data-action="fruit"></button>
+            </div>
+            <form class="custom-log" id="custom-form" autocomplete="off">
+              <label for="custom-food">Custom note</label>
+              <div>
+                <input id="custom-food" type="text" maxlength="60" placeholder="Example: paneer bowl, burger, late snack">
+                <select id="custom-type" aria-label="Choose log type">
+                  <option value="healthy">Healthy</option>
+                  <option value="junk">Junk</option>
+                  <option value="skip">Skipped</option>
+                  <option value="water">Water</option>
+                  <option value="fruit">Fruit</option>
+                </select>
+                <button type="submit">Save</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="card" aria-labelledby="coach-title">
+            <h2 class="card-title" id="coach-title">AI Suggestion</h2>
+            <p class="coach-copy" id="suggestion-text">Log a choice to unlock smart feedback.</p>
+            <ul class="rule-list" id="rule-list" aria-label="Active logic rules"></ul>
+          </section>
+        </div>
+      </section>
+
+      <section class="page" id="page-workout" aria-labelledby="workout-title">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title" id="workout-title">Workout Plan</h1>
+            <p class="page-sub">Adaptive training based on profile, hydration, and meal patterns.</p>
+          </div>
+          <button class="header-btn" type="button" id="complete-workout-button">Complete Workout</button>
+        </div>
+
+        <div class="workout-header-row">
+          <article class="card feature-card">
+            <div class="feature-icon">GO</div>
+            <div>
+              <h2>Today's Focus</h2>
+              <p id="workout-summary">Generate your plan from your profile.</p>
+            </div>
+          </article>
+          <article class="card feature-card">
+            <div class="feature-icon">REC</div>
+            <div>
+              <h2>Recovery Signal</h2>
+              <p id="recovery-tip">Hydration and skipped meals adjust intensity.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="day-tabs" id="day-tabs" role="tablist" aria-label="Workout day tabs"></div>
+        <div class="workout-grid" id="workout-grid" aria-label="Workout exercises"></div>
+        <div class="inline-actions">
+          <button class="header-btn secondary" type="button" id="refresh-workout-button">Refresh Plan</button>
+          <a class="header-btn" id="workout-calendar-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE" target="_blank" rel="noopener">Add Workout</a>
+        </div>
+      </section>
+
+      <section class="page" id="page-nutrition" aria-labelledby="nutrition-title">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title" id="nutrition-title">Nutrition Coach</h1>
+            <p class="page-sub">Meal ideas and nutrient targets for different goals.</p>
+          </div>
+          <a class="header-btn" id="calendar-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE" target="_blank" rel="noopener">Meal Reminder</a>
+        </div>
+
+        <div class="diet-tabs" id="diet-tabs" role="tablist" aria-label="Diet modes"></div>
+        <div class="nutrition-grid">
+          <article class="card">
+            <h2 class="card-title">Top Foods</h2>
+            <div class="food-recommend-list" id="food-rec-list"></div>
+          </article>
+          <article class="card">
+            <h2 class="card-title">Daily Targets</h2>
+            <div class="targets-list" id="nutrient-targets"></div>
+          </article>
+        </div>
+        <article class="card">
+          <h2 class="card-title">Weekly Meal Plan</h2>
+          <div class="meal-plan-grid" id="meal-plan-grid"></div>
+        </article>
+      </section>
+
+      <section class="page" id="page-progress" aria-labelledby="progress-title">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title" id="progress-title">Progress Tracker</h1>
+            <p class="page-sub">Score, steps, workouts, wellness, and profile signals.</p>
+          </div>
+          <button class="header-btn" type="button" data-jump="profile">Update Profile</button>
+        </div>
+
+        <div class="progress-grid">
+          <article class="chart-card">
+            <h2 class="card-title">Health Score Trend</h2>
+            <canvas id="score-chart" width="500" height="180" aria-label="Health score chart"></canvas>
+          </article>
+          <article class="chart-card">
+            <h2 class="card-title">Activity Snapshot</h2>
+            <canvas id="activity-chart" width="500" height="180" aria-label="Activity chart"></canvas>
+          </article>
+        </div>
+
+        <div class="dash-grid">
+          <article class="card">
+            <h2 class="card-title">Personal Records</h2>
+            <div class="pr-list" id="pr-list"></div>
+          </article>
+          <article class="card">
+            <h2 class="card-title">Wellness Snapshot</h2>
+            <ul class="metric-list" id="wellness-list"></ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="page-coach" aria-labelledby="ai-title">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title" id="ai-title">AI Coach</h1>
+            <p class="page-sub">Offline fallback coach for workouts, cravings, meals, and recovery.</p>
+          </div>
+        </div>
+
+        <div class="coach-layout">
+          <article class="chat-card">
+            <div class="chat-header">
+              <div class="coach-avatar">AI</div>
+              <div>
+                <strong>PeakFuel AI Coach</strong>
+                <p><span class="status-dot"></span> Offline fallback active</p>
+              </div>
+            </div>
+            <div class="chat-messages" id="chat-log" role="log" aria-live="polite"></div>
+            <form class="chat-input-row" id="chat-form">
+              <label class="sr-only" for="coach-input">Ask the coach</label>
+              <input class="chat-input" id="coach-input" type="text" maxlength="180" placeholder="Ask your coach anything...">
+              <button class="send-btn" type="submit" aria-label="Send message">Go</button>
+            </form>
+          </article>
+
+          <aside class="quick-prompts" aria-label="Quick coach prompts">
+            <button type="button" data-prompt="What should I eat before a heavy workout?">Pre-workout nutrition<span>Food before training</span></button>
+            <button type="button" data-prompt="How much protein do I need today?">Protein calculator<span>Daily protein guide</span></button>
+            <button type="button" data-prompt="Give me a quick workout for today.">Workout idea<span>Profile-based plan</span></button>
+            <button type="button" data-prompt="What should I do after skipping a meal?">Skipped meal fix<span>Recovery advice</span></button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="page" id="page-profile" aria-labelledby="profile-title">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title" id="profile-title">User Profile</h1>
+            <p class="page-sub">Personalize workouts, meals, hydration, and dashboard targets.</p>
+          </div>
+          <span class="save-state" id="save-state">Saved offline</span>
+        </div>
+
+        <div class="dash-grid">
+          <form class="card profile-form" id="profile-form">
+            <label>Display name<input id="profile-name" type="text" maxlength="32" placeholder="Your name"></label>
+            <label>Primary goal<select id="goal-select"></select></label>
+            <label>Diet preference<select id="diet-select"></select></label>
+            <label>Fitness goal<select id="fitness-select"></select></label>
+            <label>Activity level<select id="activity-select"></select></label>
+            <label>Equipment<select id="equipment-select"></select></label>
+            <label>Age<input id="age-input" type="number" min="13" max="100" inputmode="numeric"></label>
+            <label>Height cm<input id="height-input" type="number" min="120" max="230" inputmode="numeric"></label>
+            <label>Weight kg<input id="weight-input" type="number" min="30" max="250" inputmode="decimal"></label>
+            <label>Workout minutes<input id="workout-minutes" type="number" min="10" max="90" inputmode="numeric"></label>
+            <label>Step goal<input id="step-goal" type="number" min="1000" max="30000" step="500" inputmode="numeric"></label>
+            <label>Today's steps<input id="steps-input" type="number" min="0" max="100000" step="100" inputmode="numeric"></label>
+            <button class="header-btn" type="submit">Save Profile</button>
+          </form>
+
+          <article class="card">
+            <h2 class="card-title">Privacy Tools</h2>
+            <p class="coach-copy" id="data-status">Everything is stored locally in your browser.</p>
+            <div class="inline-actions">
+              <button class="header-btn secondary" type="button" id="export-button">Export</button>
+              <button class="header-btn" type="button" id="import-button">Import</button>
+            </div>
+            <label class="sr-only" for="import-data">Paste exported PeakFuel AI data</label>
+            <textarea id="import-data" rows="6" placeholder="Paste exported JSON here"></textarea>
+            <div class="quality-box">
+              <p>Testing: <strong id="test-status">Pending</strong></p>
+              <p>Repository: <strong id="repo-size-status">Under 1 MB</strong></p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
