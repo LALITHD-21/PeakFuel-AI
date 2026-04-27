@@ -505,7 +505,19 @@ function renderWaterCups() {
     cup.type = "button";
     cup.className = `cup${index < appState.water_count ? " filled" : ""}`;
     cup.setAttribute("aria-label", `Set water to ${index + 1} glasses`);
-    cup.textContent = "W";
+    cup.innerHTML = `
+      <svg viewBox="0 0 64 64" class="anime-bottle" width="100%" height="100%">
+        <path d="M 22 10 L 42 10 L 42 16 L 22 16 Z" fill="#b0bec5" stroke="#37474f" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M 28 4 L 36 4 L 36 10 L 28 10 Z" fill="#90a4ae" stroke="#37474f" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M 16 16 L 48 16 L 48 56 C 48 60 44 62 40 62 L 24 62 C 20 62 16 60 16 56 Z" fill="#e1f5fe" stroke="#37474f" stroke-width="3" stroke-linejoin="round"/>
+        <path class="water-fill" d="M 18 36 Q 25 34 32 36 Q 39 38 46 36 L 46 56 C 46 58 42 60 40 60 L 24 60 C 22 60 18 58 18 56 Z" fill="#81d4fa"/>
+        <path d="M 24 44 Q 26 40 28 44" fill="none" stroke="#37474f" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 36 44 Q 38 40 40 44" fill="none" stroke="#37474f" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 30 46 Q 32 49 34 46" fill="none" stroke="#37474f" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="22" cy="46" r="2" fill="#ff8a80"/>
+        <circle cx="42" cy="46" r="2" fill="#ff8a80"/>
+      </svg>
+    `;
     cup.addEventListener("click", () => {
       appState.water_count = index < appState.water_count ? index : index + 1;
       logPassive("water", "Water adjusted");
